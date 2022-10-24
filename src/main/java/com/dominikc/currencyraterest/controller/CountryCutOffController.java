@@ -6,6 +6,9 @@ import com.dominikc.currencyraterest.exception.CurrencyNotFoundException;
 import com.dominikc.currencyraterest.model.CountryCutOffTime;
 import com.dominikc.currencyraterest.model.CutOffTime;
 import com.dominikc.currencyraterest.repository.CountryCutOffTimesRepository;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,9 @@ import java.time.LocalDate;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+/**
+ * Controller serving country cut off times.
+ */
 @RestController
 @RequestMapping("/cut-off")
 public class CountryCutOffController {
@@ -23,6 +29,12 @@ public class CountryCutOffController {
         this.countryCutOffTimesRepository = countryCutOffTimesRepository;
     }
 
+    @ApiOperation(value = "Get cut off time for given date and currency pair")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved cut off time"),
+            @ApiResponse(code = 404, message = "Currency for provided ISO code not found"),
+            @ApiResponse(code = 400, message = "Date in the past")
+    })
     @GetMapping
     public CutOffTimeResponse cutOffTime(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                                          @RequestParam String currency1,
