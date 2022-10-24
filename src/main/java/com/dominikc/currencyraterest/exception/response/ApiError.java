@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class ApiError {
     private final LocalDateTime timestamp = LocalDateTime.now();
 
-    private HttpStatus status;
+    private int status;
 
     private String message;
 }

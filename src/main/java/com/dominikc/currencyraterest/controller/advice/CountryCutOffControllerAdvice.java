@@ -12,13 +12,13 @@ public class CountryCutOffControllerAdvice {
     @ExceptionHandler(CurrencyNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiError currencyNotFoundException(CurrencyNotFoundException exception) {
-        return new ApiError(HttpStatus.NOT_FOUND, exception.getMessage());
+        return new ApiError(HttpStatus.NOT_FOUND.value(), exception.getMessage());
     }
 
     @ExceptionHandler(ApiException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError generalApiErrorHandler(ApiException apiException) {
-        return new ApiError(HttpStatus.BAD_REQUEST, apiException.getMessage());
+        return new ApiError(HttpStatus.BAD_REQUEST.value(), apiException.getMessage());
     }
 
 }
